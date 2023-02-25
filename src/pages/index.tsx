@@ -28,36 +28,39 @@ export default function Home() {
   
   //2. Almacernar los numeros en una estructura de datos cola
   class Queue<T> {
-    public elements: T[] = [];
-  
+    public elements: T[] = []; //Línea 31: 1 operación de declaración y asignación de variable.
+    
+    //Poner en la cola
     enqueue(element: T): void {
-      this.elements.push(element);
+      this.elements.push(element); //Línea 35: 1 operación poner en la cola, invocación.
     }
-  
+    
+    //Sacar de cola 
     dequeue(): T | undefined {
-      return this.elements.shift();
+      return this.elements.shift(); //Línea 40: 1 operación sacar de la cola, invocación.
     }
-  
+    
+    // Esta vacio 
     isEmpty(): boolean {
-      return this.elements.length === 0;
+      return this.elements.length === 0; //Línea 45: 1 operación de comparación, invocacion. 
     }
   }
   
   //3. Buscar el promedio de los numeros ingresados
   const promedio = (cola: number[]) => {
-    let suma = 0;
-    for (let i = 0; i < cola.length; i++) {
-      suma += cola[i];
+    let suma = 0; //Línea 51: 1 operación de declaración y asignación de variable.
+    for (let i = 0; i < cola.length; i++) { //Línea 52: 1 operacion incremental, asignación de variable , < , invocacion  .
+      suma += cola[i]; //Línea 53: 1 operación de asignación de variable , += .
     }
-    return suma / cola.length;
+    return suma / cola.length; //Línea 55: 1 operación de asignación de variable, invocacion, /.
   };
 
   //2. Crear un botón que al hacer click genere un array con numeros con el tamaño del input anterior
   const handleClick = () => {
-    const queue = new Queue<number>();
-    for (let i = 0; i < numero; i++) {
-      const numero = Number(prompt(`Ingrese el numero ${i + 1}`));
-      queue.enqueue(numero);
+    const queue = new Queue<number>(); //Línea 60: 1 operación de declaración y asignación de variable, invocacion.
+    for (let i = 0; i < numero; i++) { //Línea 61: 1 operacion incremental, asignación de variable , < , invocacion.
+      const numero = Number(prompt(`Ingrese el numero ${i + 1}`)); //Línea 62: 1 operación de asignación de variable, invocacion, +, Number.
+      queue.enqueue(numero); //Línea 63: 1 operación de asignación de variable, invocacion.
     }
     setCola(queue.elements); //Línea 68: 1 operación de asignación de variable de estado.
     setPromedios(promedio(queue.elements)); //Línea 69: 1 operación de asignación de variable de estado.
@@ -65,6 +68,13 @@ export default function Home() {
 
   //4. Imprimir la cola en pantalla
   const imprimirCola = () => {
+    /*
+    Línea 59: 1 operación - llamada al método "Array.map()".
+    Línea 60: 2 operaciones - declaración y asignación de variable, y creación de un elemento "li".
+    Línea 60: 1 operación - asignación del valor del elemento "li".
+    Línea 60: 1 operación - asignación de una clave única al elemento "li".
+    En total, 5 operaciones por cada iteración del método "map()".
+    */
     return cola.map((numero, index) => {
       return <li key={index}>{numero}</li>;
     });
