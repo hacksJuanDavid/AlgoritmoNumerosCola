@@ -14,16 +14,16 @@ import { useState } from 'react';
 export default function Home() {
 
   //Input para ingresar un número que sea el tamaño del array
-  const [numero, setNumero] = useState(0); //Tamaño del array, Línea 18:1 operación de declaración y asignación de variable de estado.
+  const [numero, setNumero] = useState(0); //Tamaño del array, Línea 17:1 operación de declaración y asignación de variable de estado.
   //Cola
-  const [cola, setCola] = useState<number[]>([]); //Cola, Línea 23: 1 operaciones de declaración y asignación de variables de estado.//
+  const [cola, setCola] = useState<number[]>([]); //Cola, Línea 19: 1 operaciones de declaración y asignación de variables de estado.//
   // Promedio
-  const [promedios, setPromedios] = useState(0); //Promedio, Línea 26: 1 operaciones de declaración y asignación de variables de estado.//
+  const [promedios, setPromedios] = useState(0); //Promedio, Línea 21: 1 operaciones de declaración y asignación de variables de estado.//
 
 
   //1. Crear un input para ingresar un número que sea el tamaño del array
   const handleChange = (e:any) => {
-    setNumero(Number(e.target.value)); //Línea 30: 1 operación de asignación de variable de estado.
+    setNumero(Number(e.target.value)); //Línea 26: 1 operación de asignación de variable de estado.
   };
   
   //2. Almacernar los numeros en una estructura de datos cola
@@ -55,29 +55,34 @@ export default function Home() {
     return suma / cola.length; //Línea 55: 1 operación de asignación de variable, invocacion, /.
   };
 
-  //2. Crear un botón que al hacer click genere un array con numeros con el tamaño del input anterior
-  const handleClick = () => {
-    const queue = new Queue<number>(); //Línea 60: 1 operación de declaración y asignación de variable, invocacion.
-    for (let i = 0; i < numero; i++) { //Línea 61: 1 operacion incremental, asignación de variable , < , invocacion.
-      const numero = Number(prompt(`Ingrese el numero ${i + 1}`)); //Línea 62: 1 operación de asignación de variable, invocacion, +, Number.
-      queue.enqueue(numero); //Línea 63: 1 operación de asignación de variable, invocacion.
-    }
-    setCola(queue.elements); //Línea 68: 1 operación de asignación de variable de estado.
-    setPromedios(promedio(queue.elements)); //Línea 69: 1 operación de asignación de variable de estado.
-  };
 
   //4. Imprimir la cola en pantalla
   const imprimirCola = () => {
     /*
-    Línea 59: 1 operación - llamada al método "Array.map()".
-    Línea 60: 2 operaciones - declaración y asignación de variable, y creación de un elemento "li".
-    Línea 60: 1 operación - asignación del valor del elemento "li".
-    Línea 60: 1 operación - asignación de una clave única al elemento "li".
+    Línea 68: 1 operación - llamada al método "Array.map()".
+    Línea 68: 2 operaciones - declaración y asignación de variable, y creación de un elemento "li".
+    Línea 68: 1 operación - asignación del valor del elemento "li".
+    Línea 68: 1 operación - asignación de una clave única al elemento "li".
     En total, 5 operaciones por cada iteración del método "map()".
     */
     return cola.map((numero, index) => {
       return <li key={index}>{numero}</li>;
     });
+  };
+
+  // Desencolar todos los elementos de la cola y mostrarlos en pantalla
+  const handleClick = () => {
+    const queue = new Queue<number>(); //Línea 75: 1 operación de declaración y asignación de variable, invocacion.
+    for (let i = 0; i < numero; i++) { //Línea 76: 1 operacion incremental, asignación de variable , < , invocacion.
+      const numero = Number(prompt(`Ingrese el numero ${i + 1}`)); //Línea 77: 1 operación de asignación de variable, invocacion, +, Number.
+      queue.enqueue(numero); //Línea 78: 1 operación de asignación de variable, invocacion.
+    }
+    let colaDesencolada: number[] = []; //Línea 80: 1 operación de declaración y asignación de variable.
+    while (!queue.isEmpty()) { //Línea 81: 1 operación de asignación de variable, invocacion, !.
+      colaDesencolada.push(queue.dequeue()!); //Línea 82: 1 operación de asignación de variable, invocacion, !, push.
+    }
+    setCola(colaDesencolada); //Línea 84: 1 operación de asignación de variable de estado.
+    setPromedios(promedio(colaDesencolada)); //Línea 85: 1 operación de asignación de variable de estado.
   };
 
   return (
